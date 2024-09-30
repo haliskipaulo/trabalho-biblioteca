@@ -1,3 +1,19 @@
+import sqlite3
+
+def create_db():
+    conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')
+    consulta = conn.cursor()
+    consulta.execute('''
+        CREATE TABLE IF NOT EXISTS livros (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            titulo TEXT NOT NULL,
+            autor TEXT NOT NULL,
+            ano_publicacao INTEGER,
+            preco REAL
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
 
 
