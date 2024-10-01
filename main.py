@@ -1,5 +1,7 @@
 import sqlite3
 
+# === BD AQUI EM BAIXO =====
+
 def create_db():
     conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')
     consulta = conn.cursor()
@@ -14,6 +16,38 @@ def create_db():
     ''')
     conn.commit()
     conn.close()
+
+
+# === ADICIONAR UM NOVO LIVRO AQUI EM BAIXO =====
+
+
+
+# === EXIBIR TODOS OS LIVROS AQUI EM BAIXO =====
+
+
+
+# === ATUALIZAR O PREÇO DE UM NOVO LIVRO AQUI EM BAIXO =====
+
+
+
+# === REMOVER UM NOVO LIVRO AQUI EM BAIXO =====
+
+
+
+# ===  BUSCAR UM NOVO LIVRO POR AUTOR AQUI EM BAIXO =====
+
+
+
+# === EXPORTAR DADOS CSV AQUI EM BAIXO =====
+
+
+
+# === IMPORTAR DADOS CSV AQUI EM BAIXO =====
+
+
+
+# === FAZER BACKUP PARA O BDAQUI EM BAIXO =====
+
 
 
 
