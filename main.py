@@ -8,11 +8,15 @@ def criar_pastas():
     os.makedirs('TrabalhoPythonLivraria/backups', exist_ok=True)
     os.makedirs('TrabalhoPythonLivraria/exports', exist_ok=True)
 
+
+
+
+
 # === BD AQUI EM BAIXO =====
 
 def create_db():
     conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')
-    consulta = conn.cursor()
+    consulta = conn.cursor() #cursor para para interagir com o  banco
     consulta.execute('''
         CREATE TABLE IF NOT EXISTS livros (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -27,6 +31,8 @@ def create_db():
 
 
 
+
+
 # === ADICIONAR UM NOVO LIVRO AQUI EM BAIXO =====
 
 def adicionar_livro(titulo, autor, ano_publicacao, preco):
@@ -38,7 +44,21 @@ def adicionar_livro(titulo, autor, ano_publicacao, preco):
     # Usado ? no lugar de $s e tals, pois o proprio sql substitui os valores. E é mais seguro, mesmo nesse caso n precisando
 
 
+
+
+
 # === EXIBIR TODOS OS LIVROS AQUI EM BAIXO =====
+
+def exibir_livros():       
+    consulta = conn.cursor()  #cursor para para interagir com o  banco      
+    consulta.execute('SELECT * FROM livros')       
+    livros = consulta.fetchall()    #recupera os dados recolhidos pelo select do SQL, armazenando em livros
+    conn.close()
+
+    for row in livros:
+        print(row)
+
+
 
 
 
@@ -71,11 +91,13 @@ def adicionar_livro(titulo, autor, ano_publicacao, preco):
 
 criar_pastas()  
 create_db()  
-conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')
+conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db') #conexao com o BD
 
 
 while True:
-    
+
+    print()
+    print()
     print("===== MENU LIVRARIA ===== ")
     print('1. Adicionar novo livro')
     print('2. Exibir todos os livros')
@@ -97,7 +119,8 @@ while True:
         preco = float(input('Digite o preço do livro: '))
         adicionar_livro(titulo, autor, ano_publicacao, preco)    
            
-    # elif opcao == '2':
+    elif opcao == '2':
+        exibir_livros()
             
     # elif opcao == '3':
         
