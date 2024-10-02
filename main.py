@@ -50,6 +50,7 @@ def adicionar_livro(titulo, autor, ano_publicacao, preco):
 # === EXIBIR TODOS OS LIVROS AQUI EM BAIXO =====
 
 def exibir_livros():       
+    conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')  # Conectando ao banco de dados
     consulta = conn.cursor()  #cursor para para interagir com o  banco      
     consulta.execute('SELECT * FROM livros')       
     livros = consulta.fetchall()    #recupera os dados recolhidos pelo select do SQL, armazenando em livros
@@ -68,11 +69,23 @@ def exibir_livros():
 
 # === REMOVER UM LIVRO AQUI EM BAIXO =====
 
+def remorver_livro():
+    conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')  # Conectando ao banco de dados    
+    consulta = conn.cursor()  #cursor para para interagir com o  banco   
+
+    id = int(input('Digite o ID do livro para remover: '))
+
+    consulta.execute('DELETE FROM livros WHERE id = ?',(id,))
+    print(f'Livro removido com sucesso.')
+    conn.commit()
+    conn.close()    
+
 
 
 # ===  BUSCAR UM LIVRO POR AUTOR AQUI EM BAIXO =====
 
 def buscar_livros_nome_de_autor():
+    conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')  # Conectando ao banco de dados
     consulta = conn.cursor()    
 
     autor = input('Digite o nome do autor: ')
@@ -106,7 +119,7 @@ def buscar_livros_nome_de_autor():
 
 criar_pastas()  
 create_db()  
-conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db') #conexao com o BD
+
 
 
 while True:
@@ -139,7 +152,8 @@ while True:
             
     # elif opcao == '3':
         
-    # elif opcao == '4':
+    elif opcao == '4':
+        remorver_livro()
             
     elif opcao == '5':        
         buscar_livros_nome_de_autor()
