@@ -66,11 +66,26 @@ def exibir_livros():
 
 
 
-# === REMOVER UM NOVO LIVRO AQUI EM BAIXO =====
+# === REMOVER UM LIVRO AQUI EM BAIXO =====
 
 
 
-# ===  BUSCAR UM NOVO LIVRO POR AUTOR AQUI EM BAIXO =====
+# ===  BUSCAR UM LIVRO POR AUTOR AQUI EM BAIXO =====
+
+def buscar_livros_nome_de_autor():
+    consulta = conn.cursor()    
+
+    autor = input('Digite o nome do autor: ')
+
+    consulta.execute('SELECT * FROM livros WHERE autor = ?', (autor,)) # o ? é onde o nome do autor vai estar
+    livros = consulta.fetchall()  # Pega todos os resultados
+    conn.close()
+
+    if livros:
+        for row in livros:
+            print(row)  # Imprime a linha 
+    else:
+        print("Nenhum livro encontrado para o autor: ", autor)
 
 
 
@@ -126,7 +141,8 @@ while True:
         
     # elif opcao == '4':
             
-    # elif opcao == '5':
+    elif opcao == '5':        
+        buscar_livros_nome_de_autor()
             
     # elif opcao == '6':
             
