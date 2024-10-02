@@ -35,9 +35,15 @@ def create_db():
 
 # === ADICIONAR UM NOVO LIVRO AQUI EM BAIXO =====
 
-def adicionar_livro(titulo, autor, ano_publicacao, preco):
+def adicionar_livro():
     conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')
     consulta = conn.cursor()
+
+    titulo = input('Digite o título do livro: ')
+    autor = input('Digite o nome do autor do livro: ')
+    ano_publicacao = int(input('Digite o ano de publicação: '))
+    preco = float(input('Digite o preço do livro: '))
+
     consulta.execute('''INSERT INTO livros (titulo, autor, ano_publicacao, preco) VALUES (?, ?, ?, ?)''', (titulo, autor,ano_publicacao, preco))
     conn.commit()
     conn.close()    
@@ -141,11 +147,7 @@ while True:
     opcao = input('Escolha uma opção: ')
         
     if opcao == '1':
-        titulo = input('Digite o título do livro: ')
-        autor = input('Digite o nome do autor do livro: ')
-        ano_publicacao = int(input('Digite o ano de publicação: '))
-        preco = float(input('Digite o preço do livro: '))
-        adicionar_livro(titulo, autor, ano_publicacao, preco)    
+        adicionar_livro()    
            
     elif opcao == '2':
         exibir_livros()
