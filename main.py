@@ -12,7 +12,7 @@ def criar_pastas():
 
 
 
-# === BD AQUI EM BAIXO =====
+# === BD AQUI EMBAIXO =====
 
 def create_db():
     conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')
@@ -32,8 +32,7 @@ def create_db():
 
 
 
-
-# === ADICIONAR UM NOVO LIVRO AQUI EM BAIXO =====
+# === ADICIONAR UM NOVO LIVRO AQUI EMBAIXO =====
 
 def adicionar_livro():
     conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')
@@ -53,7 +52,7 @@ def adicionar_livro():
 
 
 
-# === EXIBIR TODOS OS LIVROS AQUI EM BAIXO =====
+# === EXIBIR TODOS OS LIVROS AQUI EMBAIXO =====
 
 def exibir_livros():       
     conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')  # Conectando ao banco de dados
@@ -69,13 +68,22 @@ def exibir_livros():
 
 
 
-# === ATUALIZAR O PREÇO DE UM NOVO LIVRO AQUI EM BAIXO =====
+# === ATUALIZAR O PREÇO DE UM NOVO LIVRO AQUI EMBAIXO =====
 
+def atualizar_preco():
+    conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')
+    consulta = conn.cursor()
+    id_livro = input("Digite o ID do livro que deseja modificar o preço: ")
+    novo_preco = float(input("Digite o novo preço do livro: "))
+    consulta.execute("UPDATE livros SET preco = ? WHERE id = ?", (novo_preco, id_livro))
 
+    conn.commit()
 
-# === REMOVER UM LIVRO AQUI EM BAIXO =====
+    print("Preço atualizado")
 
-def remorver_livro():
+# === REMOVER UM LIVRO AQUI EMBAIXO =====
+
+def remover_livro():
     conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')  # Conectando ao banco de dados    
     consulta = conn.cursor()  #cursor para para interagir com o  banco   
 
@@ -88,7 +96,7 @@ def remorver_livro():
 
 
 
-# ===  BUSCAR UM LIVRO POR AUTOR AQUI EM BAIXO =====
+# ===  BUSCAR UM LIVRO POR AUTOR AQUI EMBAIXO =====
 
 def buscar_livros_nome_de_autor():
     conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')  # Conectando ao banco de dados
@@ -108,15 +116,15 @@ def buscar_livros_nome_de_autor():
 
 
 
-# === EXPORTAR DADOS CSV AQUI EM BAIXO =====
+# === EXPORTAR DADOS CSV AQUI EMBAIXO =====
 
 
 
-# === IMPORTAR DADOS CSV AQUI EM BAIXO =====
+# === IMPORTAR DADOS CSV AQUI EMBAIXO =====
 
 
 
-# === FAZER BACKUP PARA O BDAQUI EM BAIXO =====
+# === FAZER BACKUP PARA O BDAQUI EMBAIXO =====
 
 
 
@@ -152,10 +160,11 @@ while True:
     elif opcao == '2':
         exibir_livros()
             
-    # elif opcao == '3':
+    elif opcao == '3':
+        atualizar_preco()
         
     elif opcao == '4':
-        remorver_livro()
+        remover_livro()
             
     elif opcao == '5':        
         buscar_livros_nome_de_autor()
