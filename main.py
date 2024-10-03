@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import csv
 
 
 # === CRIAR ESTRUTURA DE PASTAS ===
@@ -118,13 +119,40 @@ def buscar_livros_nome_de_autor():
 
 # === EXPORTAR DADOS CSV AQUI EMBAIXO =====
 
+def exportar_csv():
+    conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')  # Conectando ao banco de dados
+    consulta = conn.cursor()
+    consulta.execute("SELECT * FROM livros")
+    colunas = [descricao[0] for descricao in consulta.description]
+
+    with open("TrabalhoPythonLivraria/exports/dados.csv", "w", newline="") as arquivo:
+        writer = csv.writer(arquivo)
+        writer.writerow(colunas)
+        writer.writerows(consulta.fetchall())
+
+    conn.close()
 
 
 # === IMPORTAR DADOS CSV AQUI EMBAIXO =====
 
+def importar_csv():
+    conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')
+    consulta = conn.cursor()
 
+    with open("TrabalhoPythonLivraria/exports/dados.csv", "r", newline="") as arquivo:
+        reader = csv.reader(arquivo)
+        next(reader)
 
-# === FAZER BACKUP PARA O BDAQUI EMBAIXO =====
+        for row in reader:
+            consulta.execute('''
+                INSERT INTO livros (titulo, autor, ano_publicacao, preco)
+                VALUES (?, ?, ?, ?)
+''', (row[1], row[2], row[3], row[4]))
+    
+    conn.commit()
+    conn.close()
+
+# === FAZER BACKUP PARA O BD AQUI EMBAIXO =====
 
 
 
@@ -169,9 +197,11 @@ while True:
     elif opcao == '5':        
         buscar_livros_nome_de_autor()
             
-    # elif opcao == '6':
+    elif opcao == '6':
+        exportar_csv()
             
-    # elif opcao == '7':
+    elif opcao == '7':
+        importar_csv()
             
     # elif opcao == '8':
             
