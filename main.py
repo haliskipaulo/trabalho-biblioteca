@@ -154,6 +154,18 @@ def importar_csv():
 
 # === FAZER BACKUP PARA O BD AQUI EMBAIXO =====
 
+def backup():
+    conn = sqlite3.connect('TrabalhoPythonLivraria/data/livraria.db')  # Conectando ao banco de dados
+    consulta = conn.cursor()
+    consulta.execute("SELECT * FROM livros")
+    colunas = [descricao[0] for descricao in consulta.description]
+
+    with open("TrabalhoPythonLivraria/backups/dados.csv", "w", newline="") as arquivo:
+        writer = csv.writer(arquivo)
+        writer.writerow(colunas)
+        writer.writerows(consulta.fetchall())
+
+    conn.close()
 
 
 
@@ -176,8 +188,7 @@ while True:
     print('5. Buscar livros por autor')
     print('6. Exportar dados para CSV')
     print('7. Importar dados de CSV')
-    print('8. Fazer backup do banco de dados')
-    print('9. Sair')
+    print('8. Sair')
         
         
     opcao = input('Escolha uma opção: ')
@@ -203,9 +214,8 @@ while True:
     elif opcao == '7':
         importar_csv()
             
-    # elif opcao == '8':
-            
-    elif opcao == '9':           
+    elif opcao == '8':
+        backup()      
         print('==== Saindo... ====')
         print('==== Volte Sempre ====')
         print()
